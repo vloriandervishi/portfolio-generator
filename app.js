@@ -24,7 +24,14 @@ return inquirer .prompt([
   {
     type:'input',
     name:'about', 
-    message: 'Provide some information about yourself:'
+    message: 'Provide some information about yourself:',
+    when: ({confirmAbout})=>{
+      if(confirmAbout){
+        return true;
+      }else {
+        return false;
+      }
+    }
   }
 ]);
 };
