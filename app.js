@@ -22,14 +22,14 @@ return inquirer .prompt([
   }
 ]);
 };
-const promptProject= portfolioData =>{
+const promptProject = (portfolioData) =>{
 
   console.log(`
   =================
   Add a New Project
   =================`);
-  
- 
+
+
   // If there's no 'projects' array property, create one
   
   return inquirer.prompt([
@@ -66,12 +66,23 @@ const promptProject= portfolioData =>{
       message: 'Would you like to enter another project?',
       default: false
     }
-  ])
+  ]);
   
-    
+ 
   
 };
 promptUser()
 .then (answers => console.log(answers))
 .then(promptProject)
-.then(projectAnswers=> console.log(projectAnswers));
+.then(projectAnswers=> {
+  if(!projectAnswers.project){
+    projectAnswers.project=[];
+  }
+  projectAnswers.project.push(projectAnswers);
+  if(projectAnswers.confirmAddProject){
+    return promptProject(projectAnswers);
+
+  }else {
+    return projectAnswers;
+  }
+});
