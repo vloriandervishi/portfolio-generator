@@ -16,6 +16,12 @@ return inquirer .prompt([
     message: 'Enter your Github Username  '
   },
   {
+    type: 'confirm',
+    name: 'confirmAbout',
+    message: 'Would you like to enter some information about yourself for an',
+    default: true
+  },
+  {
     type:'input',
     name:'about', 
     message: 'Provide some information about yourself:'
@@ -40,7 +46,19 @@ const promptProject = portfolioData => {
     {
       type:'input',
       name: 'name',
-      message: 'What is the name of your project?'
+      message: 'What is the name of your project?',
+      // validate recieves an argument: argument is userInput==> nameInput
+      validate: nameInput =>{
+        if(nameInput){
+          // if validation is true the validation passed successfully
+          return true;
+        }else {
+          // if the validation is false then the user recieves a message
+          console.log('Please enter your name!');
+          return false;
+        }
+      }
+
     },
     {
       type: 'input',
@@ -72,7 +90,7 @@ const promptProject = portfolioData => {
     }
   ]).then(projectData => {
     portfolioData.projects.push(projectData);
-    if(projectData.confirmedAddProject){
+    if(projectData.confirmAddProject){
       return promptProject(portfolioData);
     }
     else{
@@ -86,7 +104,7 @@ const promptProject = portfolioData => {
 };
 promptUser()
 .then(promptProject)
-.then(pj=> {
-  console.log(pj);
+.then(portfolioData=> {
+  console.log(portfolioData);
 });
 
