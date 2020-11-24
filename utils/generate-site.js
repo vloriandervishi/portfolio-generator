@@ -15,7 +15,4 @@ const writeFile= fileContent=>{
         });
     });
 };
-module.exports = {
-    writeFile: writeFile,
-    copyFile: copyFile
-};
+module.exports = {  writeFile, copyFile};
